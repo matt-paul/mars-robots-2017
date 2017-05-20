@@ -6,6 +6,17 @@ I have decided to approach this in a way that is inspired by functional programm
 
 I am tempted to make use of Ramda as another learning experience for this project, but think I will hold off and potentially incorporate it in refactoring later on, when I can understand whether adding it is worth it.
 
+Midway through....
+I have slowly built up the project to the point of being able to interpret an array of instructions and give a final coordinates. What next?
+
+ TODO - Take into account the size of Mars
+
+ TODO - add 'Lost' property  to robot, and mark as true if robot goes over edge.
+
+ TODO - add 'Lost robots' array to state that will help robot avoid taking lost commands.
+
+ TODO - Create function that creates each robot and loads up with data including lost robot array.  
+
 
 To run this project locally...
 
