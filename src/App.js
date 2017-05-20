@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import RoverInput from './components/RoverInput';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,6 +13,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Mars Rover</h2>
         </div>
+        <RoverInput />
       </div>
     );
   }
