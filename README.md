@@ -5,3 +5,11 @@ I have added flow in, because whilst I have fairly limited experience with it, t
 I have decided to approach this in a way that is inspired by functional programming, and in particular patterns I have learnt from the use of redux over the last few months, especially immutability.  I hope this will work well!
 
 I am tempted to make use of Ramda as another learning experience for this project, but think I will hold off and potentially incorporate it in refactoring later on, when I can understand whether adding it is worth it.
+
+
+To run this project locally...
+
+yarn install
+yarn start
+
+Server will be running on localhost port 3000
