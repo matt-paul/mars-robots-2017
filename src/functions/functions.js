@@ -46,7 +46,7 @@ const rightMap = {
 export const turnRight = turn(rightMap);
 
 
-export const interpretInstruction = (robot: Robot, index) => {
+export const interpretInstruction = (robot: Robot, index: number) => {
   switch (robot.instructions[index]) {
     case 'F':
       return moveForward(robot);

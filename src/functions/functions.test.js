@@ -315,4 +315,65 @@ describe('interpreting an array of instructions', () => {
     const result = interpretInstructionArray(state, numberOfInstructions, 0);
     expect(result).toEqual(nextState);
   });
+
+  //Test cases supplied within project brief
+  test('it matches final coordinates of the first test case on project brief', () => {
+    const state = {
+      instructions: ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F'],
+      orientation: 'E',
+      x: 1,
+      y: 1,
+    };
+
+    const nextState = {
+      instructions: ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F'],
+      orientation: 'E',
+      x: 1,
+      y: 1,
+    };
+
+    const numberOfInstructions = state.instructions.length;
+    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    expect(result).toEqual(nextState);
+  });
+
+  test('it matches final coordinates of the second test case on project brief', () => {
+    const state = {
+      instructions: ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L'],
+      orientation: 'N',
+      x: 3,
+      y: 2,
+    };
+
+    const nextState = {
+      instructions: ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L'],
+      orientation: 'N',
+      x: 3,
+      y: 3,
+    };
+
+    const numberOfInstructions = state.instructions.length;
+    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    expect(result).toEqual(nextState);
+  });
+
+  // test('it matches final coordinates of the third test case on project brief', () => {
+  //   const state = {
+  //     instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+  //     orientation: 'W',
+  //     x: 0,
+  //     y: 3,
+  //   };
+  //
+  //   const nextState = {
+  //     instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+  //     orientation: 'S',
+  //     x: 2,
+  //     y: 3,
+  //   };
+  //
+  //   const numberOfInstructions = state.instructions.length;
+  //   const result = interpretInstructionArray(state, numberOfInstructions, 0);
+  //   expect(result).toEqual(nextState);
+  // });
 });
