@@ -4,6 +4,9 @@ import {
   turnRight,
   interpretInstruction,
   interpretInstructionArray,
+  setLostFlag,
+  checkLostRobotArray,
+  saveState,
 } from './functions';
 
 describe('moving forward', () => {
@@ -12,12 +15,14 @@ describe('moving forward', () => {
       orientation: 'N',
       x: 1,
       y: 1,
+      history: [],
     };
 
     const nextState = {
       orientation: 'N',
       x: 1,
       y: 2,
+      history: [],
     };
 
     const result = moveForward(state);
@@ -377,3 +382,134 @@ describe('interpreting an array of instructions', () => {
   //   expect(result).toEqual(nextState);
   // });
 });
+
+describe('checking to see whether still on the planet', () => {
+  test('changing flag to true if it has gone over the edge of X axis', () => {
+    const state = {
+      x: 3,
+      marsX: 2,
+      lost: false,
+    };
+
+    const nextState = {
+      x: 3,
+      marsX: 2,
+      lost: true,
+    };
+
+    const result = setLostFlag(state);
+    expect(result).toEqual(nextState);
+  });
+
+  test('changing flag to true if it has gone over the edge of Y axis', () => {
+    const state = {
+      y: 3,
+      marsY: 2,
+      lost: false,
+    };
+
+    const nextState = {
+      y: 3,
+      marsY: 2,
+      lost: true,
+    };
+
+    const result = setLostFlag(state);
+    expect(result).toEqual(nextState);
+  });
+
+  test('flag stays false if robot still on planet when comparing y axis', () => {
+    const state = {
+      y: 0,
+      marsY: 2,
+      lost: false,
+    };
+
+    const nextState = {
+      y: 0,
+      marsY: 2,
+      lost: false,
+    };
+
+    const result = setLostFlag(state);
+    expect(result).toEqual(nextState);
+  });
+
+  test('flag stays false if robot still on planet when comparing x axis', () => {
+    const state = {
+      x: 0,
+      marsX: 2,
+      lost: false,
+    };
+
+    const nextState = {
+      x: 0,
+      marsX: 2,
+      lost: false,
+    };
+
+    const result = setLostFlag(state);
+    expect(result).toEqual(nextState);
+  });
+});
+
+describe('saving robot state to the history array', () => {
+  // should each current state of robot be pushed into an array of state changes?
+  // Then if lost is true, go into the state change array, identify which was the object , and pick the x and coordinates of the previous object, and add them to a 'last seen at' object within the robot
+  test('the pastStates array is empty at start', () => {
+    const state = {
+      instructions: ['F'],
+      orientation: 'N',
+      x: 0,
+      y: 0,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
+    };
+
+    expect(state.history).toEqual([]);
+  });
+
+  test('the previous state is added to the pastStates array when the nextState is calculated', () => {
+    const state = {
+      history: [{}],
+    };
+
+    const nextState = {
+      history: [{}, state],
+    };
+
+    const result = saveState(state);
+    expect(result).toEqual(nextState);
+  });
+});
+
+// describe('lost robot array check', () => {
+//   test('robot does not move onto square if robot has been lost on it', () => {
+//     const state = {
+//       instructions: ['F'],
+//       orientation: 'N',
+//       x: 0,
+//       y: 0,
+//       lostRobots: [{
+//         x: 0,
+//         y: 1,
+//       }],
+//     };
+//
+//     const nextState = {
+//       instructions: ['F'],
+//       orientation: 'N',
+//       x: 0,
+//       y: 0,
+//       lostRobots: [{
+//         x: 0,
+//         y: 1,
+//       }],
+//     };
+//
+//     const result = checkLostRobotArray(state);
+//     expect(result).toEqual(nextState);
+//   });
+// });

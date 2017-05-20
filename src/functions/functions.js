@@ -5,6 +5,9 @@ type Robot = {
   orientation: string,
   x: number,
   y: number,
+  marsX: number,
+  marsY: number,
+  history: Array<Robot>
 };
 
 
@@ -59,9 +62,24 @@ export const interpretInstruction = (robot: Robot, index: number) => {
   }
 };
 
+
 export const interpretInstructionArray = (robot: Robot, arrayLength: number, index: number) => {
   if (arrayLength <= 1) {
     return interpretInstruction(robot, index);
   }
   return interpretInstructionArray(interpretInstruction(robot, index), arrayLength - 1, index + 1);
 };
+
+
+export const setLostFlag = (robot: Robot) => {
+  const offXAxis = robot.x > robot.marsX;
+  const offYAxis = robot.y > robot.marsY;
+  return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
+};
+
+
+export const saveState = (robot: Robot) => ({ ...robot, history: [...robot.history, ...[robot]] });
+
+// export const checkLostRobotArray = (robot: Robot) => {
+//   // compare the lost robot
+// }
