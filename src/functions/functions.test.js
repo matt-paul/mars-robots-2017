@@ -2,7 +2,8 @@ import {
   moveForward,
   turnLeft,
   turnRight,
-  interpretIntruction,
+  interpretInstruction,
+  interpretInstructionArray,
 } from './functions';
 
 describe('moving forward', () => {
@@ -231,7 +232,7 @@ describe('interpreting a single instruction', () => {
       y: 2,
     };
 
-    const result = interpretIntruction(state);
+    const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
 
@@ -250,7 +251,7 @@ describe('interpreting a single instruction', () => {
       y: 1,
     };
 
-    const result = interpretIntruction(state);
+    const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
 
@@ -269,7 +270,49 @@ describe('interpreting a single instruction', () => {
       y: 1,
     };
 
-    const result = interpretIntruction(state);
+    const result = interpretInstruction(state, 0);
+    expect(result).toEqual(nextState);
+  });
+});
+
+describe('interpreting an array of instructions', () => {
+  test('it moves forward two steps', () => {
+    const state = {
+      instructions: ['F', 'F'],
+      orientation: 'N',
+      x: 1,
+      y: 1,
+    };
+
+    const nextState = {
+      instructions: ['F', 'F'],
+      orientation: 'N',
+      x: 1,
+      y: 3,
+    };
+
+    const numberOfInstructions = state.instructions.length;
+    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    expect(result).toEqual(nextState);
+  });
+
+  test('turns right, then moves two steps east', () => {
+    const state = {
+      instructions: ['R', 'F', 'F'],
+      orientation: 'N',
+      x: 0,
+      y: 0,
+    };
+
+    const nextState = {
+      instructions: ['R', 'F', 'F'],
+      orientation: 'E',
+      x: 2,
+      y: 0,
+    };
+
+    const numberOfInstructions = state.instructions.length;
+    const result = interpretInstructionArray(state, numberOfInstructions, 0);
     expect(result).toEqual(nextState);
   });
 });
