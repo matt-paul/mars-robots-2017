@@ -1,10 +1,12 @@
 // @flow
 
 type Robot = {
+  instructions: Array<string>,
   orientation: string,
   x: number,
   y: number,
 };
+
 
 export const moveForward = (robot: Robot) => {
   switch (robot.orientation) {
@@ -20,6 +22,7 @@ export const moveForward = (robot: Robot) => {
       return robot;
   }
 };
+
 
 const turn = map => (robot: Robot) =>
   ({ ...robot, orientation: map[robot.orientation] });
@@ -41,3 +44,17 @@ const rightMap = {
 };
 
 export const turnRight = turn(rightMap);
+
+
+export const interpretIntruction = (robot: Robot) => {
+  switch (robot.instructions[0]) {
+    case 'F':
+      return moveForward(robot);
+    case 'L':
+      return turnLeft(robot);
+    case 'R':
+      return turnRight(robot);
+    default:
+      return robot;
+  }
+};
