@@ -20,3 +20,24 @@ export const moveForward = (robot: Robot) => {
       return robot;
   }
 };
+
+const turn = map => (robot: Robot) =>
+  ({ ...robot, orientation: map[robot.orientation] });
+
+const leftMap = {
+  N: 'W',
+  W: 'S',
+  S: 'E',
+  E: 'N',
+};
+
+export const turnLeft = turn(leftMap);
+
+const rightMap = {
+  N: 'E',
+  E: 'S',
+  S: 'W',
+  W: 'N',
+};
+
+export const turnRight = turn(rightMap);
