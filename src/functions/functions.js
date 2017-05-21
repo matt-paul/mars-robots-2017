@@ -7,7 +7,8 @@ type Robot = {
   y: number,
   marsX: number,
   marsY: number,
-  history: Array<Robot>
+  history: Array<Robot>,
+  lost: false,
 };
 
 
@@ -37,8 +38,6 @@ const leftMap = {
   E: 'N',
 };
 
-export const turnLeft = turn(leftMap);
-
 const rightMap = {
   N: 'E',
   E: 'S',
@@ -46,8 +45,29 @@ const rightMap = {
   W: 'N',
 };
 
+export const turnLeft = turn(leftMap);
 export const turnRight = turn(rightMap);
 
+
+export const setLostFlag = (robot: Robot) => {
+  const offXAxis = robot.x > robot.marsX;
+  const offYAxis = robot.y > robot.marsY;
+  return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
+};
+
+export const saveState = (robot: Robot) => {
+  const robotToSave = {
+    instructions: robot.instructions,
+    orientation: robot.orientation,
+    x: robot.x,
+    y: robot.y,
+    marsX: robot.marsX,
+    marsY: robot.marsY,
+    lost: robot.lost,
+  };
+
+  return { ...robot, history: [...robot.history, ...[robotToSave]] };
+};
 
 export const interpretInstruction = (robot: Robot, index: number) => {
   switch (robot.instructions[index]) {
@@ -69,17 +89,3 @@ export const interpretInstructionArray = (robot: Robot, arrayLength: number, ind
   }
   return interpretInstructionArray(interpretInstruction(robot, index), arrayLength - 1, index + 1);
 };
-
-
-export const setLostFlag = (robot: Robot) => {
-  const offXAxis = robot.x > robot.marsX;
-  const offYAxis = robot.y > robot.marsY;
-  return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
-};
-
-
-export const saveState = (robot: Robot) => ({ ...robot, history: [...robot.history, ...[robot]] });
-
-// export const checkLostRobotArray = (robot: Robot) => {
-//   // compare the lost robot
-// }
