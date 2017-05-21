@@ -10,3 +10,10 @@ export type Robot = {
   history: Array<Robot>,
   lost: boolean,
 };
+
+export type Data = {
+  instructions: Array<string>,
+  orientation: string,
+  marsX: number,
+  marsY: number,
+}
