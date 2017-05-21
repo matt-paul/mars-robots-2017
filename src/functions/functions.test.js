@@ -460,7 +460,7 @@ describe('interpreting an array of instructions', () => {
     };
 
     const numberOfInstructions = state.instructions.length;
-    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    const result = interpretInstructionArray(state, numberOfInstructions);
     expect(result).toEqual(nextState);
   });
 
@@ -480,7 +480,7 @@ describe('interpreting an array of instructions', () => {
     };
 
     const numberOfInstructions = state.instructions.length;
-    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    const result = interpretInstructionArray(state, numberOfInstructions);
     expect(result).toEqual(nextState);
   });
 
@@ -500,7 +500,7 @@ describe('interpreting an array of instructions', () => {
     };
 
     const numberOfInstructions = state.instructions.length;
-    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    const result = interpretInstructionArray(state, numberOfInstructions);
     expect(result).toEqual(nextState);
   });
 
@@ -520,7 +520,7 @@ describe('interpreting an array of instructions', () => {
     };
 
     const numberOfInstructions = state.instructions.length;
-    const result = interpretInstructionArray(state, numberOfInstructions, 0);
+    const result = interpretInstructionArray(state, numberOfInstructions);
     expect(result).toEqual(nextState);
   });
 

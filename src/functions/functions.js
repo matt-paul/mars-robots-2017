@@ -1,16 +1,5 @@
 // @flow
-
-type Robot = {
-  instructions: Array<string>,
-  orientation: string,
-  x: number,
-  y: number,
-  marsX: number,
-  marsY: number,
-  history: Array<Robot>,
-  lost: false,
-};
-
+import type { Robot } from './types';
 
 export const moveForward = (robot: Robot) => {
   switch (robot.orientation) {
@@ -83,7 +72,7 @@ export const interpretInstruction = (robot: Robot, index: number) => {
 };
 
 
-export const interpretInstructionArray = (robot: Robot, arrayLength: number, index: number) => {
+export const interpretInstructionArray = (robot: Robot, arrayLength: number, index: number = 0) => {
   if (arrayLength <= 1) {
     return interpretInstruction(robot, index);
   }
