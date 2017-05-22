@@ -6,6 +6,7 @@ import {
   interpretInstructionArray,
   setLostFlag,
   saveState,
+  processRobot,
 } from './functions';
 
 describe('moving forward', () => {
@@ -523,25 +524,44 @@ describe('interpreting an array of instructions', () => {
     const result = interpretInstructionArray(state, numberOfInstructions);
     expect(result).toEqual(nextState);
   });
+});
 
-  // This is not currently working because lost robot array check not implemented yet
-  // test('it matches final coordinates of the third test case on project brief', () => {
-  //   const state = {
-  //     instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
-  //     orientation: 'W',
-  //     x: 0,
-  //     y: 3,
-  //   };
-  //
-  //   const nextState = {
-  //     instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
-  //     orientation: 'S',
-  //     x: 2,
-  //     y: 3,
-  //   };
-  //
-  //   const numberOfInstructions = state.instructions.length;
-  //   const result = interpretInstructionArray(state, numberOfInstructions, 0);
-  //   expect(result).toEqual(nextState);
-  // });
+
+describe('processing the robot', () => {
+  test('should process the robot and return the new robot object', () => {
+    const state = {
+      instructions: ['F', 'F', 'F'],
+      orientation: 'N',
+      x: 0,
+      y: 0,
+      marsX: 2,
+      marsY: 2,
+      history: [],
+      lost: false,
+    };
+
+    const newState = {
+      instructions: ['F', 'F', 'F'],
+      orientation: 'N',
+      x: 0,
+      y: 3,
+      marsX: 2,
+      marsY: 2,
+      history: [
+        {
+          instructions: ['F', 'F', 'F'],
+          orientation: 'N',
+          x: 0,
+          y: 3,
+          lost: true,
+          marsX: 2,
+          marsY: 2,
+        },
+      ],
+      lost: true,
+    };
+
+    const result = processRobot(state);
+    expect(result).toEqual(newState);
+  });
 });

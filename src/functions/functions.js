@@ -78,3 +78,10 @@ export const interpretInstructionArray = (robot: Robot, arrayLength: number, ind
   }
   return interpretInstructionArray(interpretInstruction(robot, index), arrayLength - 1, index + 1);
 };
+
+export const processRobot = (robot: Robot) => {
+  const instructedRobot = interpretInstructionArray(robot, robot.instructions.length);
+  const lostFlagSet = setLostFlag(instructedRobot);
+  const historyAdded = saveState(lostFlagSet);
+  return historyAdded;
+};
