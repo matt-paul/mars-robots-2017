@@ -7,7 +7,7 @@ import {
   setLostFlag,
   saveState,
   processRobot,
-} from './functions';
+} from './robotProcessing';
 
 describe('moving forward', () => {
   test('an invalid input returns the original robot', () => {
