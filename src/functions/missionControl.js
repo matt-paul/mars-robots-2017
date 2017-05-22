@@ -1,6 +1,6 @@
 // @flow
 import type { Robot, Data } from './types';
-import { processRobot } from './functions';
+import { processRobot } from './robotProcessing';
 
 export const splitText = (text: string) => {
   const lines = text.replace(/^\s+|\s+$/gm, '').split('\n');
