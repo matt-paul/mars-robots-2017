@@ -6,6 +6,8 @@ I have added Facebooks Flow for static typing, because whilst I have fairly limi
 
 I have decided to approach this in a way that is inspired by functional programming, and in particular concepts and techniques I have learnt from the use of Redux over the last few months, such as immutability and partial application.
 
+To style this project, I have used 'styled-components', as I think it fits in well with the component based structure of a React App, and avoids the need for name spacing rules that can sometimes become an additional cognitive overhead.
+
 To run this project locally please use the following commands...
 
    - 'yarn install' to install dependencies.

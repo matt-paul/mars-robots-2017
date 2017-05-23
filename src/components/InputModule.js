@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 class InputModuleContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'Hello',
+      marsX: '',
+      marsY: '',
+      x: '',
+      y: '',
+      orientation: '',
+      instructions: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,16 +20,18 @@ class InputModuleContainer extends Component {
 
   handleChange(event) {
     this.setState({
-      value: event.target.value,
+      [event.target.name]: event.target.value,
+
     });
   }
   handleSubmit(event) {
     event.preventDefault();
+    console.log(this.state);
   }
 
   render() {
     return (
-      <InputModule
+      <StyledInputModule
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         value={this.state.value}
@@ -34,22 +42,109 @@ class InputModuleContainer extends Component {
 
 function InputModule(props) {
   return (
-    <div>
+    <div className={props.className}>
       <form onSubmit={props.handleSubmit}>
-        <label>
-          Input Mission Details:
-          <textarea type="text" value={props.value} onChange={props.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+        <div>
+
+          <div className="form-group">
+            <label htmlFor="marsX">
+              Mars X:
+              <input
+                name="marsX"
+                type="number"
+                value={props.marsX}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="marsY">
+              Mars Y:
+              <input
+                name="marsY"
+                type="number"
+                value={props.marsY}
+                onChange={props.handleChange} />
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <div className="form-group">
+            <label htmlFor="x">
+              X:
+              <input
+                name="x"
+                type="number"
+                value={props.x}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="y">
+              Y:
+              <input
+                name="y"
+                type="number"
+                value={props.y}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="orientation">
+              Orientation:
+              <input
+                name="orientation"
+                type="text"
+                value={props.orientation}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="instructions">
+              Instructions:
+              <input
+                name="instructions"
+                type="text"
+                value={props.instructions}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+
+          <div>
+            <input
+              type="submit"
+              value="Submit"
+            />
+          </div>
+        </div>
       </form>
     </div>
   );
 }
 
 InputModule.propTypes = {
-  value: PropTypes.string,
+  x: PropTypes.number,
+  y: PropTypes.number,
+  orientation: PropTypes.string,
+  instructions: PropTypes.string,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
 };
+
+const StyledInputModule = styled(InputModule)`
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+`;
 
 export default InputModuleContainer;
