@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class RoverInputContainer extends Component {
+class InputModuleContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class RoverInputContainer extends Component {
 
   render() {
     return (
-      <RoverInput
+      <InputModule
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         value={this.state.value}
@@ -32,7 +32,7 @@ class RoverInputContainer extends Component {
   }
 }
 
-function RoverInput(props) {
+function InputModule(props) {
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
@@ -46,10 +46,10 @@ function RoverInput(props) {
   );
 }
 
-RoverInput.propTypes = {
+InputModule.propTypes = {
   value: PropTypes.string,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
 };
 
-export default RoverInputContainer;
+export default InputModuleContainer;
