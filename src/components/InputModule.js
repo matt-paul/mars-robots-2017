@@ -43,15 +43,17 @@ class InputModuleContainer extends Component {
 function InputModule(props) {
   return (
     <div className={props.className}>
+      <h2>Input Module</h2>
       <form onSubmit={props.handleSubmit}>
         <div>
-
+          <h3>Mars</h3>
           <div className="form-group">
             <label htmlFor="marsX">
               Mars X:
               <input
                 name="marsX"
                 type="number"
+                className="sm"
                 value={props.marsX}
                 onChange={props.handleChange}
               />
@@ -64,19 +66,23 @@ function InputModule(props) {
               <input
                 name="marsY"
                 type="number"
+                className="sm"
                 value={props.marsY}
-                onChange={props.handleChange} />
+                onChange={props.handleChange}
+              />
             </label>
           </div>
         </div>
 
         <div>
+          <h3>Robot Data</h3>
           <div className="form-group">
             <label htmlFor="x">
               X:
               <input
                 name="x"
                 type="number"
+                className="sm"
                 value={props.x}
                 onChange={props.handleChange}
               />
@@ -89,6 +95,7 @@ function InputModule(props) {
               <input
                 name="y"
                 type="number"
+                className="sm"
                 value={props.y}
                 onChange={props.handleChange}
               />
@@ -101,6 +108,7 @@ function InputModule(props) {
               <input
                 name="orientation"
                 type="text"
+                className="sm"
                 value={props.orientation}
                 onChange={props.handleChange}
               />
@@ -113,6 +121,7 @@ function InputModule(props) {
               <input
                 name="instructions"
                 type="text"
+                className="lg"
                 value={props.instructions}
                 onChange={props.handleChange}
               />
@@ -136,15 +145,23 @@ InputModule.propTypes = {
   y: PropTypes.number,
   orientation: PropTypes.string,
   instructions: PropTypes.string,
+  marsX: PropTypes.number,
+  marsY: PropTypes.number,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
 };
 
 const StyledInputModule = styled(InputModule)`
-  width: 40%;
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+  .sm {
+    width: 20px;
+  }
+  .lg {
+    width: 60%;
+  }
 `;
 
 export default InputModuleContainer;

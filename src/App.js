@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import InputModuleContainer from './components/InputModule';
+import OutputModule from './components/OutputModule';
 import logo from './logo.svg';
 import './App.css';
 
@@ -14,6 +15,7 @@ class App extends Component {
           <h2>Mars Rover</h2>
         </div>
         <InputModuleContainer />
+        <OutputModule />
       </div>
     );
   }
