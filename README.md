@@ -28,7 +28,9 @@ The Server will be running on localhost port 3000
 
  - Fully style the UI to evoke exploring the red planet!
 
- - Implement the full input, where multiple robot data can be entered at the same time rather than one after another
+ - Split App.js into container / stateless view component
+
+ - Implement the full input, where multiple robot data can be entered at the same time rather than one after another.  Each robot will have it's own RobotInput component.
 
  - Finally, I would like to reflect further on how readable my code is, and what else I can do to make it more self documenting and readable.
 
