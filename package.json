@@ -19,7 +19,8 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "styled-components": "^1.4.6"
+    "styled-components": "^1.4.6",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
