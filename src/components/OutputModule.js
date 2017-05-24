@@ -7,7 +7,7 @@ function OutputModule(props) {
     <div className={props.className}>
       <h2>Output Module</h2>
       <h3>Final Destinations</h3>
-      <div className="robot">
+      <div className="robot-item">
         <div>Robot 1:</div>
         <div>X</div>
         <div>Y</div>
@@ -23,8 +23,7 @@ export default styled(OutputModule)`
   margin-left: auto;
   margin-right: auto;
   width: 30%;
-  .robot {
-    // border: 2px solid black;
+  .robot-item {
     display: flex;
     justify-content: space-around;
   }
