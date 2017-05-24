@@ -33,6 +33,17 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  state: {
+    input: {
+      marsX: string,
+      marsY: string,
+      x: string,
+      y: string,
+      orientation: string,
+      instructions: string,
+    }
+  }
+
   handleChange(event: Event) {
     this.setState({
       input: {

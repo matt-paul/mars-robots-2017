@@ -18,17 +18,24 @@ To run this project locally please use the following commands...
 
 The Server will be running on localhost port 3000
 
+#### TODO
+
+ - I initially implemented the function saveState, which saves the robots state to the history array, at the end of processing the robot.  Actually what I need to do is call this function after every robot move.  the history array will then contain a full history of robot moves, which I can then query to implement the last requirement, that of identifying the last 'on planet' robot position.
+
+ - From this, it will then be fairly simple to load up the next robot with an array of objects that the x/y coordinates of the scented grid positions.  Finally, a function will check before moving whether it is allowed to move based on this array.
+
+ - I am unsure of best practices regarding keeping or removing unit tests once functions have been composed together, I have left all my unit tests in however at this stage, but I would like to investigate this further.
+
+ - Fully style the UI to evoke exploring the red planet!
+
+ - Implement the full input, where multiple robot data can be entered at the same time rather than one after another
+
+ - Finally, I would like to reflect further on how readable my code is, and what else I can do to make it more self documenting and readable.
+
 #### Unit Tests
 
 
 ![Alt text](jest-tests.png)
-
-#### TODO
-
-
-I have yet to implement the function to add a robots last 'on planet' location to the lost robots array within the robot object.
-
-I am also yet to add the interface for inputting data, and outputting the result.
 
 
  ## Problem: Martian Robots
