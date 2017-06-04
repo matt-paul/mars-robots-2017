@@ -20,17 +20,11 @@ The Server will be running on localhost port 3000
 
 #### TODO
 
- - I initially implemented the function saveState, which saves the robots state to the history array, at the end of processing the robot.  Actually what I need to do is call this function after every robot move.  the history array will then contain a full history of robot moves, which I can then query to implement the last requirement, that of identifying the last 'on planet' robot position.
-
- - From this, it will then be fairly simple to load up the next robot with an array of objects that the x/y coordinates of the scented grid positions.  Finally, a function will check before moving whether it is allowed to move based on this array.
-
- - I am unsure of best practices regarding keeping or removing unit tests once functions have been composed together, I have left all my unit tests in however at this stage, but I would like to investigate this further.
-
  - Fully style the UI to evoke exploring the red planet!
 
  - Split App.js into container / stateless view component
 
- - Implement the full input, where multiple robot data can be entered at the same time rather than one after another.  Each robot will have it's own RobotInput component.
+ - data validation
 
  - Finally, I would like to reflect further on how readable my code is, and what else I can do to make it more self documenting and readable.
 

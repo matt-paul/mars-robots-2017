@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+
 function OutputItem(props) {
   const { x, y, orientation, lost } = props;
   return (
@@ -17,12 +18,15 @@ function OutputItem(props) {
   );
 }
 
+
 OutputItem.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   orientation: PropTypes.string.isRequired,
   lost: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
 };
+
 
 export default styled(OutputItem)`
     display: flex;

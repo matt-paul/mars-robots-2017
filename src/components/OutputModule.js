@@ -2,8 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuidV1 from 'uuid/v1';
 import styled from 'styled-components';
 import OutputItem from './OutputItem';
+
 
 function OutputModule(props) {
   return (
@@ -12,18 +14,20 @@ function OutputModule(props) {
       <h3>Final Destinations</h3>
       <div>
         {
-          props.data.map(robot => <OutputItem key={robot.uuid} {...robot} />)
+          props.data.map(robot => <OutputItem key={uuidV1()} {...robot} />)
         }
       </div>
     </div>
   );
 }
 
+
 OutputModule.propTypes = {
   data: PropTypes.array.isRequired,
   className: PropTypes.string.isRequired,
 
 };
+
 
 export default styled(OutputModule)`
   margin-top: 5%;

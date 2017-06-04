@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import uuidV1 from 'uuid/v1';
 import InputModule from './components/InputModule';
 import OutputModule from './components/OutputModule';
 import type { Robot } from './functions/types';
@@ -31,6 +30,7 @@ class App extends Component {
   handleChange(event: Event) {
     this.setState({
       input: event.target.value,
+      output: [],
     });
   }
 
@@ -40,7 +40,7 @@ class App extends Component {
     const results = processRobotArray(robots);
 
     this.setState({
-      ...this.state,
+      input: '',
       output: [...this.state.output, ...results],
     });
   }
@@ -53,6 +53,7 @@ class App extends Component {
           <h2>Mars Rover</h2>
         </div>
         <InputModule
+          input={this.state.input}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
         />

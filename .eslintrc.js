@@ -2,6 +2,7 @@ module.exports = {
     "extends": [
       "airbnb",
       "plugin:flowtype/recommended",
+      "plugin:react/recommended",
     ],
     "plugins": [
         "react",
@@ -9,7 +10,14 @@ module.exports = {
         "import",
         "flowtype"
     ],
+    "ecmafeatures": {
+      "modules": true,
+      "jsx": true,
+    },
     "env": {
         "jest": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 };

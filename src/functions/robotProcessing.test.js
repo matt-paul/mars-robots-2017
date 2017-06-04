@@ -777,7 +777,7 @@ describe('processing the robot', () => {
           y: 3,
         },
       ],
-      lastCoordinates: [0,2],
+      lastCoordinates: [0, 2],
       lost: true,
       lostRobots: [],
     };

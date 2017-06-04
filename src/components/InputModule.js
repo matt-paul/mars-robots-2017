@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+
 function InputModule(props) {
   return (
     <div className={props.className}>
@@ -17,7 +18,7 @@ function InputModule(props) {
                 name="instructions"
                 type="text"
                 className="lg"
-                value={props.instructions}
+                value={props.input}
                 onChange={props.handleChange}
               />
             </label>
@@ -35,17 +36,14 @@ function InputModule(props) {
   );
 }
 
+
 InputModule.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
-  orientation: PropTypes.string,
-  instructions: PropTypes.string,
-  marsX: PropTypes.number,
-  marsY: PropTypes.number,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  input: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
 };
+
 
 export default styled(InputModule)`
   width: 30%;
