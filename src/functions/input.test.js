@@ -25,6 +25,7 @@ describe('parsing and validating input', () => {
         y: 1,
         history: [],
         lost: false,
+        lostRobots: [],
       },
       {
         instructions: ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L'],
@@ -35,6 +36,7 @@ describe('parsing and validating input', () => {
         y: 2,
         history: [],
         lost: false,
+        lostRobots: [],
       },
       {
         instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
@@ -45,6 +47,7 @@ describe('parsing and validating input', () => {
         y: 3,
         history: [],
         lost: false,
+        lostRobots: [],
       },
     ];
 

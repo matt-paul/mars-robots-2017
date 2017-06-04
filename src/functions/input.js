@@ -26,6 +26,7 @@ export const processInput = (input: string) => {
     marsX,
     marsY,
     history: [],
+    lostRobots: [],
     lost: false,
   }));
 

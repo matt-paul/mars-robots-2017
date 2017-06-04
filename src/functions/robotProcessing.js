@@ -3,15 +3,16 @@ import _ from 'lodash-fp';
 import type { Robot } from './types';
 
 export const moveForward = (robot: Robot) => {
+  const onScentedPosition = robot.lostRobots.some(i => _.isEqual(i, [robot.x, robot.y]));
   switch (robot.orientation) {
     case 'N':
-      return { ...robot, y: robot.y + 1 };
+      return onScentedPosition ? robot : { ...robot, y: robot.y + 1 };
     case 'E':
-      return { ...robot, x: robot.x + 1 };
+      return onScentedPosition ? robot : { ...robot, x: robot.x + 1 };
     case 'S':
-      return { ...robot, y: robot.y - 1 };
+      return onScentedPosition ? robot : { ...robot, y: robot.y - 1 };
     case 'W':
-      return { ...robot, x: robot.x - 1 };
+      return onScentedPosition ? robot : { ...robot, x: robot.x - 1 };
     default:
       return robot;
   }
@@ -41,26 +42,21 @@ export const turnRight = turn(rightMap);
 export const setLostFlag = (robot: Robot) => {
   const offXAxis = robot.x > robot.marsX;
   const offYAxis = robot.y > robot.marsY;
-  // return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
-  if (offXAxis || offYAxis ) {
-    return ({ ...robot, lost: true })
-  } else {
-    return robot
-  }
+  return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
 };
 
-export const saveLastOnPlanetPostion = (robot: Robot) => {
+export const saveLastOnPlanetPosition = (robot: Robot) => {
   let newRobot;
-  if(robot.lost === true) {
+  if (robot.lost === true) {
     const offXAxis = robot.x > robot.marsX;
     const offYAxis = robot.y > robot.marsY;
-    newRobot = offYAxis ? ({ ...robot, lastCoordinates: [robot.x, robot.y - 1]}) :
-     ({ ...robot, lastCoordinates: [robot.x -1, robot.y]})
+    newRobot = offYAxis ? ({ ...robot, lastCoordinates: [robot.x, robot.y - 1] }) :
+     ({ ...robot, lastCoordinates: [robot.x - 1, robot.y] });
   } else {
-    newRobot = robot
+    newRobot = robot;
   }
   return newRobot;
-}
+};
 
 
 export const saveState = (robot: Robot) => {
@@ -83,11 +79,11 @@ export const interpretInstruction = (robot: Robot, index: number) => {
   }
   switch (robot.instructions[index]) {
     case 'F':
-      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, moveForward)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPosition, setLostFlag, moveForward)(robot);
     case 'L':
-      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, turnLeft)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPosition, setLostFlag, turnLeft)(robot);
     case 'R':
-      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, turnRight)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPosition, setLostFlag, turnRight)(robot);
     default:
       return robot;
   }
@@ -102,4 +98,6 @@ export const interpretInstructionArray = (robot: Robot, arrayLength: number, ind
 };
 
 
-export const processRobot = (robot: Robot) => interpretInstructionArray(robot, robot.instructions.length);
+export const processRobot = (robot: Robot, lostRobots = []) => {
+  return interpretInstructionArray({ ...robot, lostRobots }, robot.instructions.length);
+};

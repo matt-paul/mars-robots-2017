@@ -4,7 +4,7 @@ import {
   turnRight,
   interpretInstruction,
   interpretInstructionArray,
-  saveLastOnPlanetPostion,
+  saveLastOnPlanetPosition,
   setLostFlag,
   saveState,
   processRobot,
@@ -17,6 +17,7 @@ describe('moving forward', () => {
       x: 1,
       y: 1,
       history: [],
+      lostRobots: [],
     };
 
     const nextState = {
@@ -24,6 +25,7 @@ describe('moving forward', () => {
       x: 1,
       y: 1,
       history: [],
+      lostRobots: [],
     };
 
     const result = moveForward(state);
@@ -36,6 +38,7 @@ describe('moving forward', () => {
       x: 1,
       y: 1,
       history: [],
+      lostRobots: [],
     };
 
     const nextState = {
@@ -43,6 +46,7 @@ describe('moving forward', () => {
       x: 1,
       y: 2,
       history: [],
+      lostRobots: [],
     };
 
     const result = moveForward(state);
@@ -54,12 +58,14 @@ describe('moving forward', () => {
       orientation: 'E',
       x: 1,
       y: 1,
+      lostRobots: [],
     };
 
     const nextState = {
       orientation: 'E',
       x: 2,
       y: 1,
+      lostRobots: [],
     };
 
     const result = moveForward(state);
@@ -71,12 +77,14 @@ describe('moving forward', () => {
       orientation: 'S',
       x: 2,
       y: 2,
+      lostRobots: [],
     };
 
     const nextState = {
       orientation: 'S',
       x: 2,
       y: 1,
+      lostRobots: [],
     };
 
     const result = moveForward(state);
@@ -88,12 +96,14 @@ describe('moving forward', () => {
       orientation: 'W',
       x: 2,
       y: 2,
+      lostRobots: [],
     };
 
     const nextState = {
       orientation: 'W',
       x: 1,
       y: 2,
+      lostRobots: [],
     };
 
     const result = moveForward(state);
@@ -326,10 +336,10 @@ describe('checking to see whether still on the planet', () => {
       y: 2,
       marsY: 2,
       lost: true,
-      lastCoordinates: [2,2]
+      lastCoordinates: [2, 2],
     };
 
-    const result = saveLastOnPlanetPostion(state);
+    const result = saveLastOnPlanetPosition(state);
     expect(result).toEqual(nextState);
   });
 
@@ -351,7 +361,7 @@ describe('checking to see whether still on the planet', () => {
       lastCoordinates: [1, 2],
     };
 
-    const result = saveLastOnPlanetPostion(state);
+    const result = saveLastOnPlanetPosition(state);
     expect(result).toEqual(nextState);
   });
 
@@ -373,7 +383,7 @@ describe('checking to see whether still on the planet', () => {
       lastCoordinates: [1, 2],
     };
 
-    const result = saveLastOnPlanetPostion(state);
+    const result = saveLastOnPlanetPosition(state);
     expect(result).toEqual(nextState);
   });
 });
@@ -458,7 +468,7 @@ describe('interpreting a single instruction', () => {
       marsY: 2,
       lost: false,
       history: [],
-      lastSeenCoordinates: [2,2]
+      lastSeenCoordinates: [2, 2],
     };
 
     const nextState = {
@@ -470,7 +480,7 @@ describe('interpreting a single instruction', () => {
       marsY: 2,
       lost: false,
       history: [],
-      lastSeenCoordinates: [2,2]
+      lastSeenCoordinates: [2, 2],
     };
     const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
@@ -486,6 +496,7 @@ describe('interpreting a single instruction', () => {
       marsY: 2,
       lost: false,
       history: [],
+      lostRobots: [],
     };
 
     const nextState = {
@@ -496,6 +507,7 @@ describe('interpreting a single instruction', () => {
       marsX: 2,
       marsY: 2,
       lost: false,
+      lostRobots: [],
       history: [{
         instructions: ['F'],
         orientation: 'N',
@@ -592,6 +604,7 @@ describe('interpreting an array of instructions', () => {
       marsY: 2,
       lost: false,
       history: [],
+      lostRobots: [],
     };
 
     const nextState = {
@@ -603,6 +616,7 @@ describe('interpreting an array of instructions', () => {
       marsY: 2,
       lost: true,
       lastCoordinates: [1,2],
+      lostRobots: [],
       history: [{
         instructions: ['F', 'F'],
         orientation: 'N',
@@ -640,6 +654,7 @@ describe('interpreting an array of instructions', () => {
       marsY: 2,
       lost: false,
       history: [],
+      lostRobots: [],
     };
     const partialNextState = {
       orientation: 'E',
@@ -664,6 +679,7 @@ describe('interpreting an array of instructions', () => {
       marsY: 3,
       lost: false,
       history: [],
+      lostRobots: [],
     };
 
     const partialNextState = {
@@ -671,6 +687,34 @@ describe('interpreting an array of instructions', () => {
       x: 3,
       y: 3,
       lost: true,
+    };
+
+    const numberOfInstructions = state.instructions.length;
+    const result = interpretInstructionArray(state, numberOfInstructions);
+    expect(result.x).toEqual(partialNextState.x);
+    expect(result.y).toEqual(partialNextState.y);
+    expect(result.orientation).toEqual(partialNextState.orientation);
+    expect(result.lost).toEqual(partialNextState.lost);
+  });
+
+  test('it matches final coordinates of the third test case on project brief', () => {
+    const state = {
+      instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+      orientation: 'W',
+      x: 0,
+      y: 3,
+      marsX: 5,
+      marsY: 3,
+      lost: false,
+      history: [],
+      lostRobots: [[2, 3]],
+    };
+
+    const partialNextState = {
+      orientation: 'S',
+      x: 2,
+      y: 3,
+      lost: false,
     };
 
     const numberOfInstructions = state.instructions.length;
@@ -694,6 +738,7 @@ describe('processing the robot', () => {
       marsY: 2,
       history: [],
       lost: false,
+      lostRobots: [],
     };
 
     const newState = {
@@ -734,6 +779,7 @@ describe('processing the robot', () => {
       ],
       lastCoordinates: [0,2],
       lost: true,
+      lostRobots: [],
     };
 
     const result = processRobot(state);
