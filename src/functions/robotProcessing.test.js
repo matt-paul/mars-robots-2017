@@ -4,6 +4,7 @@ import {
   turnRight,
   interpretInstruction,
   interpretInstructionArray,
+  saveLastOnPlanetPostion,
   setLostFlag,
   saveState,
   processRobot,
@@ -309,6 +310,72 @@ describe('checking to see whether still on the planet', () => {
     const result = setLostFlag(state);
     expect(result).toEqual(nextState);
   });
+
+  test('saves lastCoordinates if robot off x axis', () => {
+    const state = {
+      x: 3,
+      marsX: 2,
+      y: 2,
+      marsY: 2,
+      lost: true,
+    };
+
+    const nextState = {
+      x: 3,
+      marsX: 2,
+      y: 2,
+      marsY: 2,
+      lost: true,
+      lastCoordinates: [2,2]
+    };
+
+    const result = saveLastOnPlanetPostion(state);
+    expect(result).toEqual(nextState);
+  });
+
+  test('saves lastCoordinates if robot off y axis', () => {
+    const state = {
+      x: 1,
+      marsX: 2,
+      y: 3,
+      marsY: 2,
+      lost: true,
+    };
+
+    const nextState = {
+      x: 1,
+      marsX: 2,
+      y: 3,
+      marsY: 2,
+      lost: true,
+      lastCoordinates: [1, 2],
+    };
+
+    const result = saveLastOnPlanetPostion(state);
+    expect(result).toEqual(nextState);
+  });
+
+  test('saves lastCoordinates if robot off y axis', () => {
+    const state = {
+      x: 1,
+      marsX: 2,
+      y: 3,
+      marsY: 2,
+      lost: true,
+    };
+
+    const nextState = {
+      x: 1,
+      marsX: 2,
+      y: 3,
+      marsY: 2,
+      lost: true,
+      lastCoordinates: [1, 2],
+    };
+
+    const result = saveLastOnPlanetPostion(state);
+    expect(result).toEqual(nextState);
+  });
 });
 
 
@@ -377,6 +444,34 @@ describe('interpreting a single instruction', () => {
       instructions: ['Woah'],
     };
 
+    const result = interpretInstruction(state, 0);
+    expect(result).toEqual(nextState);
+  });
+
+  test('stops interpreting instructions if the lastCoordinates property is on the robot object', () => {
+    const state = {
+      instructions: ['F'],
+      orientation: 'N',
+      x: 3,
+      y: 2,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
+      lastSeenCoordinates: [2,2]
+    };
+
+    const nextState = {
+      instructions: ['F'],
+      orientation: 'N',
+      x: 3,
+      y: 2,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
+      lastSeenCoordinates: [2,2]
+    };
     const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
@@ -507,6 +602,7 @@ describe('interpreting an array of instructions', () => {
       marsX: 2,
       marsY: 2,
       lost: true,
+      lastCoordinates: [1,2],
       history: [{
         instructions: ['F', 'F'],
         orientation: 'N',
@@ -636,6 +732,7 @@ describe('processing the robot', () => {
           y: 3,
         },
       ],
+      lastCoordinates: [0,2],
       lost: true,
     };
 

@@ -41,8 +41,26 @@ export const turnRight = turn(rightMap);
 export const setLostFlag = (robot: Robot) => {
   const offXAxis = robot.x > robot.marsX;
   const offYAxis = robot.y > robot.marsY;
-  return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
+  // return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
+  if (offXAxis || offYAxis ) {
+    return ({ ...robot, lost: true })
+  } else {
+    return robot
+  }
 };
+
+export const saveLastOnPlanetPostion = (robot: Robot) => {
+  let newRobot;
+  if(robot.lost === true) {
+    const offXAxis = robot.x > robot.marsX;
+    const offYAxis = robot.y > robot.marsY;
+    newRobot = offYAxis ? ({ ...robot, lastCoordinates: [robot.x, robot.y - 1]}) :
+     ({ ...robot, lastCoordinates: [robot.x -1, robot.y]})
+  } else {
+    newRobot = robot
+  }
+  return newRobot;
+}
 
 
 export const saveState = (robot: Robot) => {
@@ -60,13 +78,16 @@ export const saveState = (robot: Robot) => {
 
 
 export const interpretInstruction = (robot: Robot, index: number) => {
+  if (robot.hasOwnProperty('lastSeenCoordinates')) {
+    return robot;
+  }
   switch (robot.instructions[index]) {
     case 'F':
-      return _.flowRight(saveState, setLostFlag, moveForward)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, moveForward)(robot);
     case 'L':
-      return _.flowRight(saveState, setLostFlag, turnLeft)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, turnLeft)(robot);
     case 'R':
-      return _.flowRight(saveState, setLostFlag, turnRight)(robot);
+      return _.flowRight(saveState, saveLastOnPlanetPostion, setLostFlag, turnRight)(robot);
     default:
       return robot;
   }
