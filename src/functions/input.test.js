@@ -1,16 +1,16 @@
-import { processInput } from './input';
+import processInput from './input';
 
 describe('parsing and validating input', () => {
   test('creating robot object from supplied data', () => {
     const sampleInput = `
-      53
-      11E
+      5 3
+      1 1 E
       RFRFRFRF
 
-      32N
+      3 2 N
       FRRFLLFFRRFLL
 
-      03W
+      0 3 W
       LLFFFLFLFL
 
     `;

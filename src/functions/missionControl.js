@@ -1,8 +1,10 @@
 // @flow
+
 import type { Robot } from './types';
 import { processRobot } from './robotProcessing';
 
-export const processRobotArray = (array: Array<Robot>) => {
+
+const processRobotArray = (array: Array<Robot>) => {
   const lostRobots = [];
   const newArray = array.map((item) => {
     const robot = processRobot(item, lostRobots);
@@ -13,3 +15,5 @@ export const processRobotArray = (array: Array<Robot>) => {
   });
   return newArray;
 };
+
+export default processRobotArray;

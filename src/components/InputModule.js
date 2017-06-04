@@ -50,10 +50,10 @@ export default styled(InputModule)`
   margin-left: auto;
   margin-right: auto;
   text-align: left;
-  .sm {
-    width: 20px;
-  }
-  .lg {
-    width: 60%;
+  textarea {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    resize: none;
   }
 `;

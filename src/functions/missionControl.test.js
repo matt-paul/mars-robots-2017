@@ -1,6 +1,4 @@
-import {
-  processRobotArray,
-} from './missionControl';
+import processRobotArray from './missionControl';
 
 test('processing an array of robots', () => {
   const robot1 = {

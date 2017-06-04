@@ -48,7 +48,6 @@ export const setLostFlag = (robot: Robot) => {
 export const saveLastOnPlanetPosition = (robot: Robot) => {
   let newRobot;
   if (robot.lost === true) {
-    const offXAxis = robot.x > robot.marsX;
     const offYAxis = robot.y > robot.marsY;
     newRobot = offYAxis ? ({ ...robot, lastCoordinates: [robot.x, robot.y - 1] }) :
      ({ ...robot, lastCoordinates: [robot.x - 1, robot.y] });

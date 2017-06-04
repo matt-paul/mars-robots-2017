@@ -6,15 +6,21 @@ import type { Robot } from './functions/types';
 import logo from './mars.svg';
 import './App.css';
 
-import { processRobotArray } from './functions/missionControl';
-import { processInput } from './functions/input';
+import processRobotArray from './functions/missionControl';
+import processInput from './functions/input';
 
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      input: '',
+      input: `5 3
+1 1 E
+RFRFRFRF
+3 2 N
+FRRFLLFFRRFLL
+0 3 W
+LLFFFLFLFL`,
       output: [],
     };
 
