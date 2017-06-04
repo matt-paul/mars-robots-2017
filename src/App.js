@@ -1,31 +1,21 @@
 // @flow
-
 import React, { Component } from 'react';
 import uuidV1 from 'uuid/v1';
 import InputModule from './components/InputModule';
 import OutputModule from './components/OutputModule';
-import logo from './logo.svg';
+import type { Robot } from './functions/types';
+import logo from './mars.svg';
 import './App.css';
 
-import {
-  createRobotObject,
-  createRobotArray,
-  processRobotArray,
-} from './functions/missionControl';
+import { processRobotArray } from './functions/missionControl';
+import { processInput } from './functions/input';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      input: {
-        marsX: '',
-        marsY: '',
-        x: '',
-        y: '',
-        orientation: '',
-        instructions: '',
-      },
+      input: '',
       output: [],
     };
 
@@ -34,40 +24,20 @@ class App extends Component {
   }
 
   state: {
-    input: {
-      marsX: string,
-      marsY: string,
-      x: string,
-      y: string,
-      orientation: string,
-      instructions: string,
-    }
+    input: string,
+    output: Array<Robot>,
   }
 
   handleChange(event: Event) {
     this.setState({
-      input: {
-        ...this.state.input,
-        [event.target.name]: event.target.value,
-      },
+      input: event.target.value,
     });
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
-    const instructionArray = this.state.input.instructions.split('');
-    const inputData = {
-      instructions: instructionArray,
-      orientation: this.state.input.orientation,
-      x: parseInt(this.state.input.x, 10),
-      y: parseInt(this.state.input.y, 10),
-      marsX: parseInt(this.state.input.marsX, 10),
-      marsY: parseInt(this.state.input.marsY, 10),
-      uuid: uuidV1(),
-    };
-    const robotObject = createRobotObject(inputData);
-    const tempRobotArray = [robotObject];
-    const results = processRobotArray(tempRobotArray);
+    const robots = processInput(this.state.input);
+    const results = processRobotArray(robots);
 
     this.setState({
       ...this.state,
