@@ -25,48 +25,86 @@ test('processing an array of robots', () => {
     lost: false,
   };
 
-  const newRobot1 = {
-    instructions: ['F', 'F', 'F'],
-    orientation: 'N',
-    x: 0,
-    y: 3,
-    marsX: 2,
-    marsY: 2,
-    history: [
-      {
-        instructions: ['F', 'F', 'F'],
-        orientation: 'N',
-        x: 0,
-        y: 3,
-        lost: true,
-        marsX: 2,
-        marsY: 2,
-      },
-    ],
-    lost: true,
-  };
 
-  const newRobot2 = {
-    instructions: ['F', 'F', 'F'],
-    orientation: 'N',
-    x: 0,
-    y: 3,
-    marsX: 2,
-    marsY: 2,
-    history: [
-      {
-        instructions: ['F', 'F', 'F'],
-        orientation: 'N',
-        x: 0,
-        y: 3,
-        lost: true,
-        marsX: 2,
-        marsY: 2,
-      },
-    ],
-    lost: true,
-  };
+  const newRobotArray = [
+    {
+      history: [
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 1,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 2,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: true,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 3,
+        },
+      ],
+      instructions: ['F', 'F', 'F'],
+      lost: true,
+      marsX: 2,
+      marsY: 2,
+      orientation: 'N',
+      x: 0,
+      y: 3,
+    },
+    {
+      history: [
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 1,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 2,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: true,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 3,
+        },
+      ],
+      instructions: ['F', 'F', 'F'],
+      lost: true,
+      marsX: 2,
+      marsY: 2,
+      orientation: 'N',
+      x: 0,
+      y: 3,
+    },
+  ];
 
   const robotArray = processRobotArray([robot1, robot2]);
-  expect(robotArray).toEqual([newRobot1, newRobot2]);
+  expect(robotArray).toEqual(newRobotArray);
 });

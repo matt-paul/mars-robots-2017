@@ -1,7 +1,7 @@
 /* @flow */
 import _ from 'lodash-fp';
 
-export const processInput = (input) => {
+export const processInput = (input: string) => {
   const [marsX, marsY] = input.trim()
                              .slice(0, 2)
                              .split('')

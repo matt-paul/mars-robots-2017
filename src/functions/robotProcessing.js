@@ -1,4 +1,5 @@
 // @flow
+import _ from 'lodash-fp';
 import type { Robot } from './types';
 
 export const moveForward = (robot: Robot) => {
@@ -15,7 +16,6 @@ export const moveForward = (robot: Robot) => {
       return robot;
   }
 };
-
 
 const turn = map => (robot: Robot) =>
   ({ ...robot, orientation: map[robot.orientation] });
@@ -44,6 +44,7 @@ export const setLostFlag = (robot: Robot) => {
   return offXAxis || offYAxis ? ({ ...robot, lost: true }) : robot;
 };
 
+
 export const saveState = (robot: Robot) => {
   const robotToSave = {
     instructions: robot.instructions,
@@ -54,18 +55,18 @@ export const saveState = (robot: Robot) => {
     marsY: robot.marsY,
     lost: robot.lost,
   };
-
   return { ...robot, history: [...robot.history, ...[robotToSave]] };
 };
+
 
 export const interpretInstruction = (robot: Robot, index: number) => {
   switch (robot.instructions[index]) {
     case 'F':
-      return moveForward(robot);
+      return _.flowRight(saveState, setLostFlag, moveForward)(robot);
     case 'L':
-      return turnLeft(robot);
+      return _.flowRight(saveState, setLostFlag, turnLeft)(robot);
     case 'R':
-      return turnRight(robot);
+      return _.flowRight(saveState, setLostFlag, turnRight)(robot);
     default:
       return robot;
   }
@@ -79,9 +80,5 @@ export const interpretInstructionArray = (robot: Robot, arrayLength: number, ind
   return interpretInstructionArray(interpretInstruction(robot, index), arrayLength - 1, index + 1);
 };
 
-export const processRobot = (robot: Robot) => {
-  const instructedRobot = interpretInstructionArray(robot, robot.instructions.length);
-  const lostFlagSet = setLostFlag(instructedRobot);
-  const historyAdded = saveState(lostFlagSet);
-  return historyAdded;
-};
+
+export const processRobot = (robot: Robot) => interpretInstructionArray(robot, robot.instructions.length);

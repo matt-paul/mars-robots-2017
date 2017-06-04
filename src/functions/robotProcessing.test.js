@@ -240,6 +240,7 @@ describe('turning right', () => {
   });
 });
 
+
 describe('checking to see whether still on the planet', () => {
   test('changing flag to true if it has gone over the edge of X axis', () => {
     const state = {
@@ -370,27 +371,26 @@ describe('interpreting a single instruction', () => {
   test('returns the original robot when an invalid instruction is given', () => {
     const state = {
       instructions: ['Woah'],
-      orientation: 'N',
-      x: 1,
-      y: 1,
     };
 
     const nextState = {
       instructions: ['Woah'],
-      orientation: 'N',
-      x: 1,
-      y: 1,
     };
 
     const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
+
   test('moves forward when instruction is F', () => {
     const state = {
       instructions: ['F'],
       orientation: 'N',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
     };
 
     const nextState = {
@@ -398,6 +398,18 @@ describe('interpreting a single instruction', () => {
       orientation: 'N',
       x: 1,
       y: 2,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [{
+        instructions: ['F'],
+        orientation: 'N',
+        x: 1,
+        y: 2,
+        marsX: 2,
+        marsY: 2,
+        lost: false,
+      }],
     };
 
     const result = interpretInstruction(state, 0);
@@ -410,6 +422,10 @@ describe('interpreting a single instruction', () => {
       orientation: 'N',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
     };
 
     const nextState = {
@@ -417,8 +433,19 @@ describe('interpreting a single instruction', () => {
       orientation: 'W',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [{
+        instructions: ['L'],
+        orientation: 'W',
+        x: 1,
+        y: 1,
+        marsX: 2,
+        marsY: 2,
+        lost: false,
+      }],
     };
-
     const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
@@ -429,6 +456,10 @@ describe('interpreting a single instruction', () => {
       orientation: 'N',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
     };
 
     const nextState = {
@@ -436,8 +467,19 @@ describe('interpreting a single instruction', () => {
       orientation: 'E',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [{
+        instructions: ['R'],
+        orientation: 'E',
+        x: 1,
+        y: 1,
+        marsX: 2,
+        marsY: 2,
+        lost: false,
+      }],
     };
-
     const result = interpretInstruction(state, 0);
     expect(result).toEqual(nextState);
   });
@@ -451,6 +493,10 @@ describe('interpreting an array of instructions', () => {
       orientation: 'N',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
     };
 
     const nextState = {
@@ -458,6 +504,28 @@ describe('interpreting an array of instructions', () => {
       orientation: 'N',
       x: 1,
       y: 3,
+      marsX: 2,
+      marsY: 2,
+      lost: true,
+      history: [{
+        instructions: ['F', 'F'],
+        orientation: 'N',
+        x: 1,
+        y: 2,
+        marsX: 2,
+        marsY: 2,
+        lost: false,
+      },
+      {
+        instructions: ['F', 'F'],
+        orientation: 'N',
+        x: 1,
+        y: 3,
+        marsX: 2,
+        marsY: 2,
+        lost: true,
+      },
+      ],
     };
 
     const numberOfInstructions = state.instructions.length;
@@ -465,25 +533,6 @@ describe('interpreting an array of instructions', () => {
     expect(result).toEqual(nextState);
   });
 
-  test('turns right, then moves two steps east', () => {
-    const state = {
-      instructions: ['R', 'F', 'F'],
-      orientation: 'N',
-      x: 0,
-      y: 0,
-    };
-
-    const nextState = {
-      instructions: ['R', 'F', 'F'],
-      orientation: 'E',
-      x: 2,
-      y: 0,
-    };
-
-    const numberOfInstructions = state.instructions.length;
-    const result = interpretInstructionArray(state, numberOfInstructions);
-    expect(result).toEqual(nextState);
-  });
 
   test('it matches final coordinates of the first test case on project brief', () => {
     const state = {
@@ -491,10 +540,12 @@ describe('interpreting an array of instructions', () => {
       orientation: 'E',
       x: 1,
       y: 1,
+      marsX: 2,
+      marsY: 2,
+      lost: false,
+      history: [],
     };
-
-    const nextState = {
-      instructions: ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F'],
+    const partialNextState = {
       orientation: 'E',
       x: 1,
       y: 1,
@@ -502,7 +553,9 @@ describe('interpreting an array of instructions', () => {
 
     const numberOfInstructions = state.instructions.length;
     const result = interpretInstructionArray(state, numberOfInstructions);
-    expect(result).toEqual(nextState);
+    expect(result.x).toEqual(partialNextState.x);
+    expect(result.y).toEqual(partialNextState.y);
+    expect(result.orientation).toEqual(partialNextState.orientation);
   });
 
   test('it matches final coordinates of the second test case on project brief', () => {
@@ -511,18 +564,25 @@ describe('interpreting an array of instructions', () => {
       orientation: 'N',
       x: 3,
       y: 2,
+      marsX: 5,
+      marsY: 3,
+      lost: false,
+      history: [],
     };
 
-    const nextState = {
-      instructions: ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L'],
+    const partialNextState = {
       orientation: 'N',
       x: 3,
       y: 3,
+      lost: true,
     };
 
     const numberOfInstructions = state.instructions.length;
     const result = interpretInstructionArray(state, numberOfInstructions);
-    expect(result).toEqual(nextState);
+    expect(result.x).toEqual(partialNextState.x);
+    expect(result.y).toEqual(partialNextState.y);
+    expect(result.orientation).toEqual(partialNextState.orientation);
+    expect(result.lost).toEqual(partialNextState.lost);
   });
 });
 
@@ -550,12 +610,30 @@ describe('processing the robot', () => {
       history: [
         {
           instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
           orientation: 'N',
           x: 0,
-          y: 3,
+          y: 1,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
+          lost: false,
+          marsX: 2,
+          marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 2,
+        },
+        {
+          instructions: ['F', 'F', 'F'],
           lost: true,
           marsX: 2,
           marsY: 2,
+          orientation: 'N',
+          x: 0,
+          y: 3,
         },
       ],
       lost: true,
