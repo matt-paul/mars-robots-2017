@@ -1,4 +1,9 @@
-import processInput from './input';
+import {
+  processInput,
+  validateInstructionsLength,
+  validateXYCoordinates,
+  validateMarsCoordinates,
+} from './input';
 
 describe('parsing and validating input', () => {
   test('creating robot object from supplied data', () => {
@@ -53,5 +58,60 @@ describe('parsing and validating input', () => {
 
     const result = processInput(sampleInput);
     expect(result).toEqual(outputData);
+  });
+
+
+  test('should validate and return true as all instructions are less than maximum length', () => {
+    const robots = [
+      {
+        instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+      },
+      {
+        instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+      },
+    ];
+
+    const result = validateInstructionsLength(robots);
+    expect(result).toEqual(true)
+  });
+
+
+  test('should validate and return false as some instructinos are more than maximum length', () => {
+    const robots = [
+      {
+        instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+      },
+      {
+        instructions: ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L', 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L'],
+      },
+    ];
+
+    const result = validateInstructionsLength(robots);
+    expect(result).toEqual(false)
+  });
+
+
+  test('should validate and return true for x and y coordinates that are no greater than 50', () => {
+    const validRobots = [{ x: 1, y: 1 }, { x: 50, y: 1 }];
+    const result = validateXYCoordinates(validRobots);
+    expect(result).toEqual(true);
+  });
+
+  test('should validate and return false for x and y coordinates that are no greater than 50', () => {
+    const invalidRobots = [{ x: 1, y: 1 }, { x: 55, y: 1 }];
+    const result = validateXYCoordinates(invalidRobots);
+    expect(result).toEqual(false);
+  });
+
+  test('should validate and return true for marsX and marsY coordinates that are no greater than 50', () => {
+    const validRobots = [{ marsX: 1, marsY: 1 }, { marsX: 50, marsY: 1 }];
+    const result = validateMarsCoordinates(validRobots);
+    expect(result).toEqual(true);
+  });
+
+  test('should validate and return false for x and y coordinates that are no greater than 50', () => {
+    const invalidRobots = [{ marsX: 1, marsY: 1 }, { marsX: 55, marsY: 1 }];
+    const result = validateMarsCoordinates(invalidRobots);
+    expect(result).toEqual(false);
   });
 });

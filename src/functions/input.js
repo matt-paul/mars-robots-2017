@@ -2,7 +2,7 @@
 
 import _ from 'lodash-fp';
 
-const processInput = (input: string) => {
+export const processInput = (input: string) => {
   const [marsX, marsY] = input.trim()
                              .slice(0, 3)
                              .split(' ')
@@ -39,4 +39,9 @@ const processInput = (input: string) => {
   return _.merge(otherObjectProperties, orientationXYArray);
 };
 
-export default processInput;
+
+export const validateInstructionsLength = (robots: Array<Robot>) => robots.every(x => x.instructions.length < 100);
+
+export const validateXYCoordinates = (robots: Array<Robot>) => robots.every(robot => robot.x <= 50 && robot.y <= 50);
+
+export const validateMarsCoordinates = (robots: Array<Robot>) => robots.every(robot => robot.marsX <= 50 && robot.marsY <= 50);

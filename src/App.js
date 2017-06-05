@@ -9,7 +9,7 @@ import logo from './mars.svg';
 import './App.css';
 
 import processRobotArray from './functions/missionControl';
-import processInput from './functions/input';
+import { processInput } from './functions/input';
 
 
 class AppContainer extends Component {
