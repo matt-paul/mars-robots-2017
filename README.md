@@ -18,15 +18,6 @@ To run this project locally please use the following commands...
 
 The Server will be running on localhost port 3000
 
-#### TODO
-
- - Fully style the UI to evoke exploring the red planet!
-
- - Split App.js into container / stateless view component
-
- - data validation
-
- - Finally, I would like to reflect further on how readable my code is, and what else I can do to make it more self documenting and readable.
 
 #### Unit Tests
 

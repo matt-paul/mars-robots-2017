@@ -9,7 +9,13 @@ import logo from './mars.svg';
 import './App.css';
 
 import processRobotArray from './functions/missionControl';
-import { processInput } from './functions/input';
+
+import {
+  processInput,
+  validateInstructionsLength,
+  validateMarsCoordinates,
+  validateXYCoordinates,
+} from './functions/input';
 
 
 class AppContainer extends Component {
@@ -24,6 +30,11 @@ FRRFLLFFRRFLL
 0 3 W
 LLFFFLFLFL`,
       output: [],
+      error: {
+        instructionLength: false,
+        marsXY: false,
+        xy: false,
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,18 +44,50 @@ LLFFFLFLFL`,
   state: {
     input: string,
     output: Array<Robot>,
+    error: {
+      instructionLength: boolean,
+      marsXY: boolean,
+      xy: boolean,
+    }
   }
 
   handleChange(event: Event) {
     this.setState({
       input: event.target.value,
       output: [],
+      error: {
+        instructionLength: false,
+        marsXY: false,
+        xy: false,
+      }
     });
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
     const robots = processInput(this.state.input);
+
+    if (!validateInstructionsLength(robots)) {
+      this.setState({
+        error: { ...this.state.error, instructionLength: true },
+      });
+      return;
+    }
+
+    if (!validateMarsCoordinates(robots)) {
+      this.setState({
+        error: { ...this.state.error, marsXY: true },
+      });
+      return;
+    }
+
+    if (!validateXYCoordinates(robots)) {
+      this.setState({
+        error: { ...this.state.error, xy: true },
+      });
+      return;
+    }
+
     const results = processRobotArray(robots);
 
     this.setState({
@@ -58,6 +101,7 @@ LLFFFLFLFL`,
       <App
         input={this.state.input}
         output={this.state.output}
+        error={this.state.error}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
       />
@@ -70,10 +114,11 @@ function App(props) {
     <div className="App">
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>Mars Rover</h2>
+        <h2>Martian Robots</h2>
       </div>
       <InputModule
         input={props.input}
+        error={props.error}
         handleSubmit={props.handleSubmit}
         handleChange={props.handleChange}
       />

@@ -615,7 +615,7 @@ describe('interpreting an array of instructions', () => {
       marsX: 2,
       marsY: 2,
       lost: true,
-      lastCoordinates: [1,2],
+      lastCoordinates: [1, 2],
       lostRobots: [],
       history: [{
         instructions: ['F', 'F'],

@@ -72,7 +72,7 @@ describe('parsing and validating input', () => {
     ];
 
     const result = validateInstructionsLength(robots);
-    expect(result).toEqual(true)
+    expect(result).toEqual(true);
   });
 
 
@@ -87,7 +87,7 @@ describe('parsing and validating input', () => {
     ];
 
     const result = validateInstructionsLength(robots);
-    expect(result).toEqual(false)
+    expect(result).toEqual(false);
   });
 
 

@@ -16,4 +16,5 @@ const processRobotArray = (array: Array<Robot>) => {
   return newArray;
 };
 
+
 export default processRobotArray;

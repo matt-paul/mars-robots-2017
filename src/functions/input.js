@@ -1,6 +1,7 @@
 /* @flow */
 
 import _ from 'lodash-fp';
+import type { Robot } from './types';
 
 export const processInput = (input: string) => {
   const [marsX, marsY] = input.trim()
@@ -40,8 +41,14 @@ export const processInput = (input: string) => {
 };
 
 
-export const validateInstructionsLength = (robots: Array<Robot>) => robots.every(x => x.instructions.length < 100);
+export const validateInstructionsLength = (robots: Array<Robot>) => {
+  return robots.every(robot => robot.instructions.length < 100);
+};
 
-export const validateXYCoordinates = (robots: Array<Robot>) => robots.every(robot => robot.x <= 50 && robot.y <= 50);
+export const validateXYCoordinates = (robots: Array<Robot>) => {
+  return robots.every(robot => robot.x <= 50 && robot.y <= 50);
+};
 
-export const validateMarsCoordinates = (robots: Array<Robot>) => robots.every(robot => robot.marsX <= 50 && robot.marsY <= 50);
+export const validateMarsCoordinates = (robots: Array<Robot>) => {
+  return robots.every(robot => robot.marsX <= 50 && robot.marsY <= 50);
+};

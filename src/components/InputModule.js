@@ -3,6 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {
+  errorMessageInstructions,
+  errorMessageXY,
+  errorMessageMars,
+} from './errorMessages';
 
 
 function InputModule(props) {
@@ -27,11 +32,14 @@ function InputModule(props) {
           <div className="submit-container">
             <input
               type="submit"
-              value="Submit"
+              value="Launch"
             />
           </div>
         </div>
       </form>
+      <p>{props.error.instructionLength ? errorMessageInstructions : ''}</p>
+      <p>{props.error.xy ? errorMessageXY : ''}</p>
+      <p>{props.error.marsXY ? errorMessageMars : ''}</p>
     </div>
   );
 }
@@ -42,6 +50,11 @@ InputModule.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   className: PropTypes.string.isRequired,
+  error: PropTypes.shape({
+    instructionLength: PropTypes.bool,
+    xy: PropTypes.bool,
+    marsXY: PropTypes.bool,
+  }),
 };
 
 InputModule.defaultProps = {
@@ -59,7 +72,7 @@ export default styled(InputModule)`
   }
   textarea {
     width: 100%;
-    height: 160px;
+    height: 120px;
     box-sizing: border-box;
     resize: none;
   }
