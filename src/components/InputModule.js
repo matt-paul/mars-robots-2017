@@ -13,8 +13,8 @@ function InputModule(props) {
         <div>
           <div className="form-group">
             <label htmlFor="instructions">
-              Instructions:
               <textarea
+                placeholder="Please place mission details here"
                 name="instructions"
                 type="text"
                 className="lg"
@@ -24,7 +24,7 @@ function InputModule(props) {
             </label>
           </div>
 
-          <div>
+          <div className="submit-container">
             <input
               type="submit"
               value="Submit"
@@ -38,10 +38,14 @@ function InputModule(props) {
 
 
 InputModule.propTypes = {
-  input: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  input: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
   className: PropTypes.string.isRequired,
+};
+
+InputModule.defaultProps = {
+  input: '',
 };
 
 
@@ -50,10 +54,21 @@ export default styled(InputModule)`
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+  * {
+    border: 1px solid white;
+  }
   textarea {
     width: 100%;
-    height: 200px;
+    height: 160px;
     box-sizing: border-box;
     resize: none;
+  }
+  input {
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+  }
+  .submit-container {
+    display: flex;
   }
 `;

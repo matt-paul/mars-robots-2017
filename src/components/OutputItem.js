@@ -9,11 +9,11 @@ function OutputItem(props) {
   const { x, y, orientation, lost } = props;
   return (
     <div className={props.className}>
-      <div>Robot 1:</div>
-      <div>{x}</div>
-      <div>{y}</div>
-      <div>{orientation}</div>
-      <div>{lost === true ? 'LOST' : 'ALIVE'}</div>
+      <div className="lg">Robot {props.index + 1}:</div>
+      <div className="sm">{x}</div>
+      <div className="sm">{y}</div>
+      <div className="sm">{orientation}</div>
+      <div className="lost">{lost === true ? 'LOST' : ''}</div>
     </div>
   );
 }
@@ -25,10 +25,22 @@ OutputItem.propTypes = {
   orientation: PropTypes.string.isRequired,
   lost: PropTypes.bool.isRequired,
   className: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 
 export default styled(OutputItem)`
     display: flex;
-    justify-content: space-around;
+    background-color: white;
+    .lg {
+      width: 40%;
+    }
+    .sm {
+      width: 10%;
+    }
+    .lost {
+      color: red;
+      margin-left: auto;
+      margin-right: auto;
+    }
 `;

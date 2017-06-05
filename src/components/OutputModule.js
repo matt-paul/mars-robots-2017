@@ -12,9 +12,9 @@ function OutputModule(props) {
     <div className={props.className}>
       <h2>Output Module</h2>
       <h3>Final Destinations</h3>
-      <div>
+      <div className="output-item-container">
         {
-          props.data.map(robot => <OutputItem key={uuidV1()} {...robot} />)
+          props.data.map((robot, index) => <OutputItem key={uuidV1()} index={index} {...robot} />)
         }
       </div>
     </div>
@@ -34,4 +34,10 @@ export default styled(OutputModule)`
   margin-left: auto;
   margin-right: auto;
   width: 30%;
+  * {
+    border: 1px solid white;
+  }
+  .output-item-container {
+    border: none;
+  }
 `;
