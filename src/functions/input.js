@@ -45,6 +45,16 @@ export const validateInstructionsLength = (robots: Array<Robot>) => {
   return robots.every(robot => robot.instructions.length < 100);
 };
 
+export const validateSingleRobotInstructionChars = (robot) => {
+  return robot.instructions.every(instruction => {
+    return instruction === 'F' || instruction === 'R' || instruction === 'L';
+  });
+};
+
+export const validateRobotArrayInstructionChars = (robots: Array<Robot>) => {
+  return robots.every(validateSingleRobotInstructionChars);
+};
+
 export const validateXYCoordinates = (robots: Array<Robot>) => {
   return robots.every(robot => robot.x <= 50 && robot.y <= 50);
 };

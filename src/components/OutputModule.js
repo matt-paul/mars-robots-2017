@@ -14,7 +14,8 @@ function OutputModule(props) {
       <h3>Final Destinations</h3>
       <div className="output-item-container">
         {
-          props.data.map((robot, index) => <OutputItem key={uuidV1()} index={index} {...robot} />)
+          props.data.map((robot, index) =>
+            <OutputItem key={uuidV1()} index={index} {...robot} />)
         }
       </div>
     </div>
@@ -25,7 +26,6 @@ function OutputModule(props) {
 OutputModule.propTypes = {
   data: PropTypes.array.isRequired,
   className: PropTypes.string.isRequired,
-
 };
 
 

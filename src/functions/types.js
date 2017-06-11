@@ -9,6 +9,7 @@ export type Robot = {
   marsY: number,
   history: Array<Robot>,
   lost: boolean,
+  lostRobots: Array<Robot>,
 };
 
 export type Data = {

@@ -1,8 +1,12 @@
+// @flow
+
 import {
   processInput,
   validateInstructionsLength,
   validateXYCoordinates,
   validateMarsCoordinates,
+  validateSingleRobotInstructionChars,
+  validateRobotArrayInstructionChars,
 } from './input';
 
 describe('parsing and validating input', () => {
@@ -112,6 +116,31 @@ describe('parsing and validating input', () => {
   test('should validate and return false for x and y coordinates that are no greater than 50', () => {
     const invalidRobots = [{ marsX: 1, marsY: 1 }, { marsX: 55, marsY: 1 }];
     const result = validateMarsCoordinates(invalidRobots);
+    expect(result).toEqual(false);
+  });
+
+  test('should return true if a single robots instructions array contains only the valid characters', () => {
+    const validInstructions = { instructions: ['L', 'R', 'F'] };
+    const result = validateSingleRobotInstructionChars(validInstructions);
+    expect(result).toEqual(true);
+  });
+
+  test('should return false if a single robots instructions array contains an invalid character', () => {
+    const invalidInstructions = { instructions: ['U', 'R', 'F'] };
+    const result = validateSingleRobotInstructionChars(invalidInstructions);
+    expect(result).toEqual(false);
+  });
+
+
+  test('should return true for array of robots with correct instruction characters', () => {
+    const validInstructions = [{ instructions: ['L', 'R', 'F'] }];
+    const result = validateRobotArrayInstructionChars(validInstructions);
+    expect(result).toEqual(true);
+  });
+
+  test('should return false for array of robots with invalid instruction characters', () => {
+    const invalidInstructions = [{ instructions: ['U', 'R', 'F'] }];
+    const result = validateRobotArrayInstructionChars(invalidInstructions);
     expect(result).toEqual(false);
   });
 });

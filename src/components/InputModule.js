@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
   errorMessageInstructions,
+  errorMessageInstructionChars,
   errorMessageXY,
   errorMessageMars,
 } from './errorMessages';
@@ -40,6 +41,7 @@ function InputModule(props) {
       <p>{props.error.instructionLength ? errorMessageInstructions : ''}</p>
       <p>{props.error.xy ? errorMessageXY : ''}</p>
       <p>{props.error.marsXY ? errorMessageMars : ''}</p>
+      <p>{props.error.instructionChars ? errorMessageInstructionChars : ''}</p>
     </div>
   );
 }

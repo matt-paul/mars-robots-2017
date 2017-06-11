@@ -13,6 +13,7 @@ import processRobotArray from './functions/missionControl';
 import {
   processInput,
   validateInstructionsLength,
+  validateRobotArrayInstructionChars,
   validateMarsCoordinates,
   validateXYCoordinates,
 } from './functions/input';
@@ -32,6 +33,7 @@ LLFFFLFLFL`,
       output: [],
       error: {
         instructionLength: false,
+        instructionChars: false,
         marsXY: false,
         xy: false,
       },
@@ -46,6 +48,7 @@ LLFFFLFLFL`,
     output: Array<Robot>,
     error: {
       instructionLength: boolean,
+      instructionChars: boolean,
       marsXY: boolean,
       xy: boolean,
     }
@@ -59,7 +62,7 @@ LLFFFLFLFL`,
         instructionLength: false,
         marsXY: false,
         xy: false,
-      }
+      },
     });
   }
 
@@ -84,6 +87,13 @@ LLFFFLFLFL`,
     if (!validateXYCoordinates(robots)) {
       this.setState({
         error: { ...this.state.error, xy: true },
+      });
+      return;
+    }
+
+    if (!validateRobotArrayInstructionChars(robots)) {
+      this.setState({
+        error: { ...this.state.error, instructionChars: true },
       });
       return;
     }
@@ -132,6 +142,7 @@ function App(props) {
 App.propTypes = {
   input: PropTypes.string,
   output: PropTypes.array,
+  error: PropTypes.object,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
 };
